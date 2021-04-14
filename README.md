@@ -1,5 +1,7 @@
 # TestWktec
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a91cd617-3671-4b98-9c2e-0dfa0e4616bd/deploy-status)](https://app.netlify.com/sites/test-wktec/deploys)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.9.
 
 ## Development server
