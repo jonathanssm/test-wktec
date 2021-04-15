@@ -1,0 +1,19 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list class="col-12">
+      <a mat-list-item routerLink="/cliente">Cliente</a>
+      <a mat-list-item routerLink="/produto">Produto</a>
+      <a mat-list-item routerLink="/venda">Realizar Pedido</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="dark">
+      <button type="button" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <a routerLink="/home"><span>Test WKTec</span></a>
+    </mat-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
