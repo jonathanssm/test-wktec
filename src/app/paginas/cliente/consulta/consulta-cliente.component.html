@@ -2,7 +2,7 @@
   <form [formGroup]="form" class="container">
     <div class="row">
       <div class="col-12 col-xl-2">
-        <app-input label="CPF" [control]="cpfControl" placeHolder="CPF" mascara="000.000.000-00"
+        <app-input label="CPF" formControlName="cpf" [control]="cpfControl" placeHolder="CPF" mascara="000.000.000-00"
           msgErro="Campo obrigatório e deve conter 11 dígitos de 0-9."></app-input>
       </div>
     </div>
