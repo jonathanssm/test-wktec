@@ -9,40 +9,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// Angular Material Components
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatListModule } from '@angular/material/list';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
-import { MatPaginatorModule } from '@angular/material/paginator';
+// NGX Mask
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+
+// Angular Material Module
+import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MaterialModule } from 'src/app/material-module';
 
 // Componentes compartilhado
 import { ToolbarComponent } from './compartilhado/componentes/toolbar/toolbar.component';
+import { InputComponent } from './compartilhado/componentes/input/input.component';
 
 // Paginas
 import { HomeComponent } from './paginas/home/home.component';
@@ -50,38 +27,14 @@ import { ClienteComponent } from './paginas/cliente/cliente.component';
 import { ProdutoComponent } from './paginas/produto/produto.component';
 import { VendaComponent } from './paginas/venda/venda.component';
 
+// Permissao Rota
+import { PermissaoRota } from 'src/app/permissao-rota';
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
+
 const MODULO_ANGULAR_MATERIAL = [
-  MatCheckboxModule,
-  MatCheckboxModule,
-  MatButtonModule,
-  MatInputModule,
-  MatAutocompleteModule,
-  MatDatepickerModule,
-  MatFormFieldModule,
-  MatRadioModule,
-  MatSelectModule,
-  MatSliderModule,
-  MatSlideToggleModule,
-  MatMenuModule,
-  MatSidenavModule,
-  MatToolbarModule,
-  MatListModule,
-  MatGridListModule,
-  MatCardModule,
-  MatStepperModule,
-  MatTabsModule,
-  MatExpansionModule,
-  MatButtonToggleModule,
-  MatChipsModule,
-  MatIconModule,
-  MatProgressSpinnerModule,
-  MatProgressBarModule,
-  MatDialogModule,
-  MatTooltipModule,
-  MatSnackBarModule,
-  MatTableModule,
-  MatSortModule,
-  MatPaginatorModule
+  MaterialModule,
+  MatNativeDateModule
 ];
 
 @NgModule({
@@ -91,7 +44,8 @@ const MODULO_ANGULAR_MATERIAL = [
     HomeComponent,
     ClienteComponent,
     ProdutoComponent,
-    VendaComponent
+    VendaComponent,
+    InputComponent
   ],
   imports: [
     BrowserModule,
@@ -101,10 +55,11 @@ const MODULO_ANGULAR_MATERIAL = [
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    NgxMaskModule.forRoot(),
     ...MODULO_ANGULAR_MATERIAL
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  providers: [PermissaoRota, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearence: 'fill' } }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
