@@ -23,6 +23,7 @@
     "@angular/router": "~11.2.10",
     "animate.css": "^4.1.1",
     "hammerjs": "^2.0.8",
+    "ngx-mask": "^11.1.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

@@ -1,1 +1,8 @@
-<p>cliente works!</p>
+<div class="animate__animated animate__fadeIn">
+  <form [formGroup]="form" class="container">
+    <app-input label="Nome" [control]="nomeControl" placeHolder="Nome" mascara="S" msgErro="Campo obrigatório.">
+    </app-input>
+    <app-input label="CPF" [control]="cpfControl" placeHolder="CPF" mascara="000.000.000-00"
+      msgErro="Campo obrigatório e deve conter 11 dígitos de 0-9."></app-input>
+  </form>
+</div>
