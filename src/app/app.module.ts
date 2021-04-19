@@ -23,8 +23,8 @@ import { InputComponent } from './compartilhado/componentes/input/input.componen
 
 // Paginas
 import { HomeComponent } from './paginas/home/home.component';
-import { ClienteComponent } from './paginas/cliente/cliente.component';
-import { ProdutoComponent } from './paginas/produto/produto.component';
+import { ConsultaClienteComponent } from './paginas/cliente/consulta/consulta-cliente.component';
+import { ConsultaProdutoComponent } from './paginas/produto/consulta/consulta-produto.component';
 import { VendaComponent } from './paginas/venda/venda.component';
 
 // Permissao Rota
@@ -42,8 +42,8 @@ const MODULO_ANGULAR_MATERIAL = [
     AppComponent,
     ToolbarComponent,
     HomeComponent,
-    ClienteComponent,
-    ProdutoComponent,
+    ConsultaClienteComponent,
+    ConsultaProdutoComponent,
     VendaComponent,
     InputComponent
   ],

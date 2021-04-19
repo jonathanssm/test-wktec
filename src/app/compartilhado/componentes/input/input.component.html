@@ -1,6 +1,7 @@
-<mat-form-field appearance="fill" [hideRequiredMarker]="esconderMarcaCampoObrigatorio" floatLabel="auto">
+<mat-form-field class="mb-4" appearance="outline" [hideRequiredMarker]="esconderMarcaCampoObrigatorio"
+  [style.width.%]="100" floatLabel="auto">
   <mat-label>{{label}}</mat-label>
   <input matInput [formControlName]="controlName" [formControl]="control" autocomplete="off" [placeholder]="placeHolder"
-    [required]="isCampoObrigatorio" [mask]="mascara" [dropSpecialCharacters]="true">
+    [readonly]="somenteLeitura" [required]="isCampoObrigatorio" [mask]="mascara" [dropSpecialCharacters]="true">
   <mat-error *ngIf="campoInvalido()">{{msgErro}}</mat-error>
 </mat-form-field>

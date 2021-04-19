@@ -27,6 +27,9 @@ export class InputComponent implements OnInit, AfterViewInit {
   @Input()
   public mascara: string;
 
+  @Input()
+  public somenteLeitura?: boolean;
+
   public controlName: string;
 
   public isCampoObrigatorio: boolean;
@@ -41,6 +44,7 @@ export class InputComponent implements OnInit, AfterViewInit {
     this.exbibirMsgErro = true;
     this.controlName = AppFormularioUtil.getNomeFormControl(this.control);
     this.mascara = '';
+    this.somenteLeitura = false;
   }
 
   ngOnInit(): void { }

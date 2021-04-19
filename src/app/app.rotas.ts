@@ -3,8 +3,8 @@ import { Routes } from '@angular/router';
 
 // Componentes
 import { HomeComponent } from './paginas/home/home.component';
-import { ClienteComponent } from './paginas/cliente/cliente.component';
-import { ProdutoComponent } from './paginas/produto/produto.component';
+import { ConsultaClienteComponent } from './paginas/cliente/consulta/consulta-cliente.component';
+import { ConsultaProdutoComponent } from './paginas/produto/consulta/consulta-produto.component';
 import { VendaComponent } from './paginas/venda/venda.component';
 
 // Permissao Rota
@@ -16,8 +16,18 @@ export const ROTAS: Routes = [
         path: '', data: { title: 'Test WKTec' },
         children: [
             { path: 'home', component: HomeComponent, data: { title: 'Home' }, canActivate: [PermissaoRota] },
-            { path: 'cliente', component: ClienteComponent, data: { title: 'Cliente' }, canActivate: [PermissaoRota] },
-            { path: 'produto', component: ProdutoComponent, data: { title: 'Produto' }, canActivate: [PermissaoRota] },
+            {
+                path: 'cliente', data: { title: 'Cliente' }, canActivate: [PermissaoRota],
+                children: [
+                    { path: 'consulta', component: ConsultaClienteComponent, data: { title: 'Cliente' }, canActivate: [PermissaoRota] }
+                ]
+            },
+            {
+                path: 'produto', data: { title: 'Produto' }, canActivate: [PermissaoRota],
+                children: [
+                    { path: 'consulta', component: ConsultaProdutoComponent, data: { title: 'Produto' }, canActivate: [PermissaoRota] }
+                ]
+            },
             { path: 'venda', component: VendaComponent, data: { title: 'Venda' }, canActivate: [PermissaoRota] }
         ]
     }
