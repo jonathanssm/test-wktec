@@ -1,9 +1,9 @@
-<mat-sidenav-container class="sidenav-container" hasBackdrop="true">
+<mat-sidenav-container class="sidenav-container" style="height: 100vh;" hasBackdrop="true">
   <mat-sidenav #drawer class="sidenav" mode="over" fixedInViewport="true">
     <mat-toolbar (click)="drawer.close()">Menu</mat-toolbar>
     <mat-nav-list class="col-12">
-      <a mat-list-item routerLink="/cliente" (click)="drawer.close()">Cliente</a>
-      <a mat-list-item routerLink="/produto" (click)="drawer.close()">Produto</a>
+      <a mat-list-item routerLink="/cliente/consulta" (click)="drawer.close()">Cliente</a>
+      <a mat-list-item routerLink="/produto/consulta" (click)="drawer.close()">Produto</a>
       <a mat-list-item routerLink="/venda" (click)="drawer.close()">Realizar Pedido</a>
     </mat-nav-list>
   </mat-sidenav>
