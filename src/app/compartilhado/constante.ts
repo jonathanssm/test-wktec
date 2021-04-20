@@ -1,0 +1,30 @@
+enum Constante {
+  // MASCARAS
+  MASCARA_HORA_MINUTO = 'HH:mm',
+  MASCARA_HORA_MINUTO_SEGUNDO = 'HH:mm:ss',
+  MASCARA_DATA_HORA = 'DD/MM/YYYY HH:mm:ss',
+  MASCARA_DATA = 'DD/MM/YYYY',
+  MASCARA_CNPJ = '00.000.000/0000-00',
+  MASCARA_CPF = '000.000.000-00',
+  MASCARA_LOGIN = 'i*.i*',
+  MASCARA_CELULAR = '90000-0000',
+  MASCARA_CELULAR_DDD = '(00) 90000-0000',
+  MASCARA_FIXO_DDD = '(00) 0000-0000',
+  MASCARA_CEP = '00000-000',
+  MASCARA_NOME = 'L',
+
+  // regex validacao
+  REGEX_VALIDACAO_NUMERO = '^[0-9]*',
+  REGEX_VALIDACAO_NOME = '^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÊÈÍÏÓÔÕÖÚÇÑ ]+$',
+  REGEX_VALIDACAO_CPF_SEM_MASCARA = '[0-9]{11}',
+  REGEX_VALIDACAO_CNPJ_SEM_MASCARA = '[0-9]{14}',
+  REGEX_EMAIL = '^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+[\.\-][a-zA-Z0-9-.]+$',
+  REGEX_VALIDACAO_LOGIN = '^[a-z]+[\.]{1}[a-z]+$',
+  REGEX_VALIDACAO_LOGIN_CPF = '^[a-z]+[\.]{1}[a-z]+[0-9]{0,11}$',
+  REGEX_VALIDACAO_CELULAR_SEM_MASCARA = '[0-9]{9}',
+  REGEX_VALIDACAO_CELULAR_DDD_SEM_MASCARA = '[0-9]{11}',
+  REGEX_VALIDACAO_FIXO_DDD_SEM_MASCARA = '[0-9]{10}',
+  REGEX_VALIDACAO_CEP_SEM_MASCARA = '[0-9]{8}'
+}
+
+export { Constante };

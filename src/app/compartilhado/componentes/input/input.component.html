@@ -1,7 +1,10 @@
-<mat-form-field class="mb-4" appearance="outline" [hideRequiredMarker]="esconderMarcaCampoObrigatorio"
-  [style.width.%]="100" floatLabel="auto">
+<mat-form-field [hideRequiredMarker]="isCampoOpicional" [style.width.%]="100" floatLabel="auto">
   <mat-label for="idInput{{complementoId}}">{{label}}</mat-label>
-  <input matInput id="idInput{{complementoId}}" [formControl]="control" autocomplete="off" [placeholder]="placeHolder"
-    [readonly]="somenteLeitura" [required]="isCampoObrigatorio" [mask]="mascara" [dropSpecialCharacters]="true">
+  <input #input matInput id="idInput{{complementoId}}" [formControl]="control" autocomplete="off" [type]="tipo"
+    [placeholder]="placeHolder" [readonly]="somenteLeitura" [required]="isCampoObrigatorio" [mask]="mascara"
+    [dropSpecialCharacters]="true">
+  <button mat-button matSuffix mat-icon-button aria-label="Limpar" (click)="limpar()">
+    <mat-icon>close</mat-icon>
+  </button>
   <mat-error *ngIf="campoInvalido()">{{msgErro}}</mat-error>
 </mat-form-field>

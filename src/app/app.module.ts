@@ -14,12 +14,14 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 // Angular Material Module
 import { MatNativeDateModule } from '@angular/material/core';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MaterialModule } from 'src/app/material-module';
 
 // Componentes compartilhado
 import { ToolbarComponent } from './compartilhado/componentes/toolbar/toolbar.component';
 import { InputComponent } from './compartilhado/componentes/input/input.component';
+import { DatepickerComponent } from './compartilhado/componentes/datepicker/datepicker.component';
+import { RadioComponent } from './compartilhado/componentes/radio/radio.component';
+import { ButtonComponent } from './compartilhado/componentes/button/button.component';
 
 // Paginas
 import { HomeComponent } from './paginas/home/home.component';
@@ -30,7 +32,7 @@ import { VendaComponent } from './paginas/venda/venda.component';
 // Permissao Rota
 import { PermissaoRota } from 'src/app/permissao-rota';
 
-export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = ({});
 
 const MODULO_ANGULAR_MATERIAL = [
   MaterialModule,
@@ -45,7 +47,10 @@ const MODULO_ANGULAR_MATERIAL = [
     ConsultaClienteComponent,
     ConsultaProdutoComponent,
     VendaComponent,
-    InputComponent
+    InputComponent,
+    DatepickerComponent,
+    RadioComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -55,11 +60,13 @@ const MODULO_ANGULAR_MATERIAL = [
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgxMaskModule.forRoot(),
-    ...MODULO_ANGULAR_MATERIAL
+    ...MODULO_ANGULAR_MATERIAL,
+    NgxMaskModule.forRoot()
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [PermissaoRota, { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearence: 'fill' } }],
+  providers: [
+    PermissaoRota
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
