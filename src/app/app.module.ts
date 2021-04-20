@@ -16,8 +16,9 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialModule } from 'src/app/material-module';
 
-// Servico
+// Servicos
 import { ModalServico } from './compartilhado/componentes/modal/modal.servico';
+import { AppServico } from './compartilhado/servico/app-servico.service';
 
 // Componentes compartilhado
 import { ToolbarComponent } from './compartilhado/componentes/toolbar/toolbar.component';
@@ -72,7 +73,7 @@ const MODULO_ANGULAR_MATERIAL = [
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
-    PermissaoRota, ModalServico
+    PermissaoRota, ModalServico, AppServico
   ],
   bootstrap: [AppComponent]
 })
