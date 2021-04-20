@@ -1,0 +1,9 @@
+<h4 mat-dialog-title>Confirmação</h4>
+<mat-dialog-content class="mat-typography" [style.margin.px]="0">
+  <p [innerHtml]="data.mensagem"></p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-raised-button (click)="emitirEventoNaoConfirmado($event)">Não</button>
+  <button mat-button mat-raised-button color="primary" (click)="emitirEventoConfirmado($event)"
+    cdkFocusInitial>Sim</button>
+</mat-dialog-actions>
