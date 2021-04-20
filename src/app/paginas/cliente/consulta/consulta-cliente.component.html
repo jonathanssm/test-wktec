@@ -1,9 +1,14 @@
 <div class="animate__animated animate__fadeIn">
   <form [formGroup]="form" class="container">
     <div class="row">
-      <div class="col-12 col-xl-2">
-        <app-input label="CPF" formControlName="cpf" [control]="cpfControl" placeHolder="CPF" mascara="000.000.000-00"
-          msgErro="Campo obrigatório e deve conter 11 dígitos de 0-9."></app-input>
+      <app-radio id="tipoPessoa" formControlName="tipoPessoa" [control]="tipoPessoaControl" [listaOpcao]="listaOpcao"
+        (selecionarOpcao)="selecionarOpcao($event)"></app-radio>
+      <div class="col-12 col-xl-3">
+        <app-input [label]="label" formControlName="documento" [control]="documentoControl" [placeHolder]="label"
+          [mascara]="mascara" [msgErro]="msgErro"></app-input>
+      </div>
+      <div class="col-auto">
+        <app-button nomeBotao="Consultar" [bloquear]="form.invalid" (eventoClick)="consultar()"></app-button>
       </div>
     </div>
   </form>

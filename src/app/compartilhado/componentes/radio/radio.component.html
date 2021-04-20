@@ -1,0 +1,9 @@
+<div class="col-12">
+  <mat-radio-group [(ngModel)]="opcaoSelecionada">
+    <mat-radio-button #radio class="espacamento" name="id" *ngFor="let opcao of listaOpcao; index as indice"
+      id="radio-{{complementoId}}-{{indice}}" [value]="opcao.id" [checked]="isOpcaoSelecionada(opcao.id)"
+      [disabled]="somenteLeitura" color="primary" (change)="onChanges($event, opcao.id)">
+      {{opcao.descricao}}
+    </mat-radio-button>
+  </mat-radio-group>
+</div>

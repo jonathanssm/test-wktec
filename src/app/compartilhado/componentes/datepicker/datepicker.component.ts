@@ -1,28 +1,23 @@
-// Angular
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, forwardRef, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 // Util
 import { AppFormularioUtil } from '../../utils/app-formulario.util';
 
-export const INPUT_CONTROL_VALUE_ACCESSOR: any = {
+export const DATEPICKER_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => InputComponent),
+  useExisting: forwardRef(() => DatepickerComponent),
   multi: true
 };
 
-/*
-* tipo="color | date | datetime-local | email | month | number | password | search | tel | text |
-        time | url | week"
-*/
 @Component({
-  selector: 'app-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss'],
-  providers: [INPUT_CONTROL_VALUE_ACCESSOR]
+  selector: 'app-datepicker',
+  templateUrl: './datepicker.component.html',
+  styleUrls: ['./datepicker.component.scss'],
+  providers: [DATEPICKER_CONTROL_VALUE_ACCESSOR]
 })
-export class InputComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor {
-  private static idInputContador = 0;
+export class DatepickerComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
+  private static idDatePickerContador = 0;
 
   @Input()
   public isCampoOpicional: boolean;
@@ -37,16 +32,10 @@ export class InputComponent implements OnInit, AfterViewInit, OnDestroy, OnChang
   public msgErro: string;
 
   @Input()
-  public control: FormControl = new FormControl();
-
-  @Input()
-  public mascara: string;
+  public control: FormControl = new FormControl({ disabled: true });
 
   @Input()
   public somenteLeitura?: boolean;
-
-  @Input()
-  public tipo: string;
 
   @ViewChild('input') private refInput: ElementRef = new ElementRef({});
 
@@ -61,18 +50,12 @@ export class InputComponent implements OnInit, AfterViewInit, OnDestroy, OnChang
     this.msgErro = '';
     this.isCampoObrigatorio = !this.isCampoOpicional;
     this.exbibirMsgErro = true;
-    this.mascara = '';
     this.somenteLeitura = false;
     this.complementoId = '';
-    this.tipo = 'text';
   }
 
   ngOnInit(): void {
-    this.complementoId = `${++InputComponent.idInputContador}`;
-  }
-
-  ngOnChanges(): void {
-    this.changeDetector.detectChanges();
+    this.complementoId = `${++DatepickerComponent.idDatePickerContador}`;
   }
 
   ngAfterViewInit(): void {
@@ -96,7 +79,7 @@ export class InputComponent implements OnInit, AfterViewInit, OnDestroy, OnChang
   }
 
   registerOnChange(fn: any): void {
-    this.propagarAlteracaoValor = fn;
+
   }
 
   registerOnTouched(fn: any): void {
@@ -104,16 +87,10 @@ export class InputComponent implements OnInit, AfterViewInit, OnDestroy, OnChang
   }
 
   ngOnDestroy(): void {
-    InputComponent.idInputContador--;
+    DatepickerComponent.idDatePickerContador--;
   }
 
   campoInvalido(): boolean {
-    return this.control.invalid && (this.control.dirty || this.control.touched || this.control.errors !== null);
+    return this.control.invalid && (this.control.dirty || this.control.touched);
   }
-
-  limpar(): void {
-    this.control.setValue('');
-  }
-
-  private propagarAlteracaoValor = (_: any) => { };
 }

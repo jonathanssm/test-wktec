@@ -1,0 +1,8 @@
+<mat-form-field [hideRequiredMarker]="isCampoOpicional" [style.width.%]="100" floatLabel="auto">
+  <mat-label for="idDatepicker{{complementoId}}">{{label}}</mat-label>
+  <input matInput [matDatepicker]="dp3" id="idDatepicker{{complementoId}}" [formControl]="control" autocomplete="off"
+    [placeholder]="placeHolder" [readonly]="true" [required]="isCampoObrigatorio">
+  <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+  <mat-datepicker #dp3 [disabled]="somenteLeitura"></mat-datepicker>
+  <mat-error *ngIf="campoInvalido()">{{msgErro}}</mat-error>
+</mat-form-field>
