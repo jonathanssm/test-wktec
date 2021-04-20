@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+// Servicos
+import { ModalServico } from 'src/app/compartilhado/componentes/modal/modal.servico';
+
 // Constante
 import { Constante } from 'src/app/compartilhado/constante';
 
@@ -29,7 +32,7 @@ export class ConsultaClienteComponent implements OnInit {
 
   private mapaValidacao: Map<string, Validacao>;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private modalServico: ModalServico) {
     this.mapaValidacao = AppDocumentoUtil.getMapCPFCNPJValidacao();
     this.msgErro = AppDocumentoUtil.MSG_ERRO_OPCAO_PESSOA_FISICA;
     this.mascara = Constante.MASCARA_CPF;
@@ -51,7 +54,7 @@ export class ConsultaClienteComponent implements OnInit {
   }
 
   consultar(): void {
-    console.log('consultado');
+    this.modalServico.exibirMensagem(`Consultado com sucesso.`);
   }
 
   private configurarDocumentoControl(validacao: Validacao): void {

@@ -16,12 +16,18 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialModule } from 'src/app/material-module';
 
+// Servicos
+import { ModalServico } from './compartilhado/componentes/modal/modal.servico';
+import { AppServico } from './compartilhado/servico/app-servico.service';
+
 // Componentes compartilhado
 import { ToolbarComponent } from './compartilhado/componentes/toolbar/toolbar.component';
 import { InputComponent } from './compartilhado/componentes/input/input.component';
 import { DatepickerComponent } from './compartilhado/componentes/datepicker/datepicker.component';
 import { RadioComponent } from './compartilhado/componentes/radio/radio.component';
 import { ButtonComponent } from './compartilhado/componentes/button/button.component';
+import { ConfirmacaoComponent } from './compartilhado/componentes/modal/confirmacao/confirmacao.component';
+import { MensagemComponent } from './compartilhado/componentes/modal/mensagem/mensagem.component';
 
 // Paginas
 import { HomeComponent } from './paginas/home/home.component';
@@ -50,7 +56,9 @@ const MODULO_ANGULAR_MATERIAL = [
     InputComponent,
     DatepickerComponent,
     RadioComponent,
-    ButtonComponent
+    ButtonComponent,
+    ConfirmacaoComponent,
+    MensagemComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +73,7 @@ const MODULO_ANGULAR_MATERIAL = [
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
-    PermissaoRota
+    PermissaoRota, ModalServico, AppServico
   ],
   bootstrap: [AppComponent]
 })
