@@ -8,12 +8,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ModalServico } from 'src/app/compartilhado/componentes/modal/modal.servico';
 import { AppServico } from 'src/app/compartilhado/servico/app-servico.service';
 
-// Modelo
+// Modelos
 import { ParametroRota } from 'src/app/compartilhado/modelo/parametro-rota.dto';
+import { Produto } from '../produto.modelo';
 
 // Util
 import { AppParametroRotaUtil } from 'src/app/compartilhado/utils/app-parametro-rota.util';
-import { Produto } from '../produto.modelo';
 
 @Component({
   selector: 'app-consulta-produto',
@@ -31,6 +31,7 @@ export class ConsultaProdutoComponent implements OnInit {
   public dataSource = new MatTableDataSource<Produto>();
 
   private parametroRota: ParametroRota;
+  private listaProdutoTemporaria: Array<Produto> = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,7 +56,9 @@ export class ConsultaProdutoComponent implements OnInit {
   }
 
   consultarProduto(): void {
-    this.modalServico.exibirMensagem(`Consultado com sucesso.`);
+    this.listaProdutoTemporaria = this.listaProduto.filter(produto => produto.codigo === this.form.controls.codigoProduto.value);
+    this.dataSource = new MatTableDataSource<Produto>(this.listaProdutoTemporaria);
+    this.dataSource.paginator = this.paginator;
   }
 
   redirecionarParaCadastro(): void {
@@ -70,11 +73,14 @@ export class ConsultaProdutoComponent implements OnInit {
   }
 
   private carregarListaProdutos(): void {
-    this.appServico.getListaProduto().subscribe(data => {
-      this.listaProduto = data.map((e: any) => (e.payload.doc.data()));
-      this.dataSource = new MatTableDataSource<Produto>(this.listaProduto);
-      this.dataSource.paginator = this.paginator;
-    });
+    if (this.form.controls.codigoProduto.value === '') {
+      this.appServico.getListaProduto().subscribe(data => {
+        this.listaProduto = data.map((e: any) => (e.payload.doc.data()));
+        this.dataSource = new MatTableDataSource<Produto>(this.listaProduto);
+        this.dataSource.paginator = this.paginator;
+        this.listaProdutoTemporaria = this.listaProduto;
+      });
+    }
   }
 
   private carregarDadoParametro(): void {

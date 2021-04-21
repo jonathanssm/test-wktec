@@ -9,6 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// Pipes
+import { CnpjPipe } from 'src/app/compartilhado/pipe/cnpj.pipe';
+import { CpfPipe } from 'src/app/compartilhado/pipe/cpf.pipe';
+
 // NGX Mask
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 
@@ -31,10 +35,11 @@ import { MensagemComponent } from './compartilhado/componentes/modal/mensagem/me
 
 // Paginas
 import { HomeComponent } from './paginas/home/home.component';
-import { ConsultaClienteComponent } from './paginas/cliente/consulta/consulta-cliente.component';
+import { ConsultaClienteComponent } from './paginas/cliente/consulta-cliente/consulta-cliente.component';
 import { ConsultaProdutoComponent } from './paginas/produto/consulta-produto/consulta-produto.component';
 import { VendaComponent } from './paginas/venda/venda.component';
 import { CadastroProdutoComponent } from './paginas/produto/cadastro-produto/cadastro-produto.component';
+import { CadastroClienteComponent } from './paginas/cliente/cadastro-cliente/cadastro-cliente.component';
 
 // Env
 import { environment } from '../environments/environment';
@@ -69,7 +74,10 @@ const MODULO_ANGULAR_MATERIAL = [
     ButtonComponent,
     ConfirmacaoComponent,
     MensagemComponent,
-    CadastroProdutoComponent
+    CadastroProdutoComponent,
+    CadastroClienteComponent,
+    CpfPipe,
+    CnpjPipe
   ],
   imports: [
     BrowserModule,
