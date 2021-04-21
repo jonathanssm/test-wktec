@@ -14,7 +14,7 @@ export class AppServico {
         return this.firestore.collection('produto').doc(produto.codigo.toString()).set(produto);
     }
 
-    getListaProduto(): Observable<any> {
+    getListaProduto(): Observable<Array<any>> {
         return this.firestore.collection('produto').snapshotChanges();
     }
 
