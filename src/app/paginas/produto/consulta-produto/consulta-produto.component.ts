@@ -4,12 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // Servicos
 import { ModalServico } from 'src/app/compartilhado/componentes/modal/modal.servico';
+import { AppServico } from 'src/app/compartilhado/servico/app-servico.service';
 
 // Modelo
 import { ParametroRota } from 'src/app/compartilhado/modelo/parametro-rota.dto';
 
 // Util
 import { AppParametroRotaUtil } from 'src/app/compartilhado/utils/app-parametro-rota.util';
+import { Produto } from '../produto.modelo';
 
 @Component({
   selector: 'app-consulta-produto',
@@ -20,6 +22,7 @@ export class ConsultaProdutoComponent implements OnInit {
 
   public form: FormGroup = new FormGroup({});
   public codigoControl: FormControl = new FormControl({});
+  public listaProduto: Array<Produto> = [];
 
   private parametroRota: ParametroRota;
 
@@ -27,7 +30,8 @@ export class ConsultaProdutoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private modalServico: ModalServico,
     private router: Router,
-    private rotaAtiva: ActivatedRoute
+    private rotaAtiva: ActivatedRoute,
+    private appServico: AppServico
   ) {
     this.parametroRota = AppParametroRotaUtil.recuperarParametro(this.rotaAtiva);
   }
@@ -35,6 +39,7 @@ export class ConsultaProdutoComponent implements OnInit {
   ngOnInit(): void {
     this.iniciarForm();
     this.carregarDadoParametro();
+    this.carregarListaProdutos();
   }
 
   consultar(): void {
@@ -50,6 +55,18 @@ export class ConsultaProdutoComponent implements OnInit {
 
     this.router.navigate([
       '/produto/cadastro', AppParametroRotaUtil.gerarParametro(parametroRetorno)]);
+  }
+
+  private carregarListaProdutos(): void {
+    this.appServico.getListaProduto().subscribe(data => {
+      this.listaProduto = data.map((e: any) => {
+        return e.payload.doc.data();
+      });
+
+      this.listaProduto.forEach(dado => {
+        console.log(dado.codigo);
+      });
+    });
   }
 
   private carregarDadoParametro(): void {
