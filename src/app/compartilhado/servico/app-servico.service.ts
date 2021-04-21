@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 // Modelos
@@ -10,16 +10,12 @@ export class AppServico {
 
     constructor(private firestore: AngularFirestore) { }
 
-    inserirAtualizarProduto(produto: Produto): Promise<any> {
+    inserirAtualizarProduto(produto: Produto): Promise<void> {
         return this.firestore.collection('produto').doc(produto.codigo.toString()).set(produto);
     }
 
-    getListaProduto(): Observable<Array<any>> {
+    getListaProduto(): Observable<DocumentChangeAction<unknown>[]> {
         return this.firestore.collection('produto').snapshotChanges();
-    }
-
-    atualizarProduto(idProduto: number, produto: Produto): void {
-        this.firestore.doc('produto/' + idProduto).update(produto);
     }
 
     excluirProduto(idProduto: number): void {
