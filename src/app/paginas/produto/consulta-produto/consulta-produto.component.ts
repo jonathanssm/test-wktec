@@ -59,9 +59,9 @@ export class ConsultaProdutoComponent implements OnInit {
 
   private carregarListaProdutos(): void {
     this.appServico.getListaProduto().subscribe(data => {
-      this.listaProduto = data.map((e: any) => {
-        return e.payload.doc.data();
-      });
+      this.listaProduto = data.map((e: any) =>
+        (e.payload.doc.data())
+      );
 
       this.listaProduto.forEach(dado => {
         console.log(dado.codigo);
