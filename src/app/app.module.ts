@@ -32,8 +32,9 @@ import { MensagemComponent } from './compartilhado/componentes/modal/mensagem/me
 // Paginas
 import { HomeComponent } from './paginas/home/home.component';
 import { ConsultaClienteComponent } from './paginas/cliente/consulta/consulta-cliente.component';
-import { ConsultaProdutoComponent } from './paginas/produto/consulta/consulta-produto.component';
+import { ConsultaProdutoComponent } from './paginas/produto/consulta-produto/consulta-produto.component';
 import { VendaComponent } from './paginas/venda/venda.component';
+import { CadastroProdutoComponent } from './paginas/produto/cadastro-produto/cadastro-produto.component';
 
 // Permissao Rota
 import { PermissaoRota } from 'src/app/permissao-rota';
@@ -58,7 +59,8 @@ const MODULO_ANGULAR_MATERIAL = [
     RadioComponent,
     ButtonComponent,
     ConfirmacaoComponent,
-    MensagemComponent
+    MensagemComponent,
+    CadastroProdutoComponent
   ],
   imports: [
     BrowserModule,

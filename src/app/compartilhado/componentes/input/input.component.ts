@@ -48,6 +48,12 @@ export class InputComponent implements OnInit, AfterViewInit, OnDestroy, OnChang
   @Input()
   public tipo: string;
 
+  @Input()
+  public tamanhoMaximo?: number;
+
+  @Input()
+  public droparCaracterSpecial: boolean;
+
   @ViewChild('input') private refInput: ElementRef = new ElementRef({});
 
   public isCampoObrigatorio: boolean;
@@ -65,6 +71,8 @@ export class InputComponent implements OnInit, AfterViewInit, OnDestroy, OnChang
     this.somenteLeitura = false;
     this.complementoId = '';
     this.tipo = 'text';
+    this.tamanhoMaximo = 524288;
+    this.droparCaracterSpecial = true;
   }
 
   ngOnInit(): void {

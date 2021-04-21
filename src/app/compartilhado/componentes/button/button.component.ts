@@ -13,15 +13,23 @@ export class ButtonComponent implements OnInit {
   @Input()
   public bloquear: boolean;
 
+  @Input()
+  public iconeBotao?: string;
+
   @Output()
   public eventoClick: EventEmitter<any> = new EventEmitter();
+
+  public exibirInconeBotao: boolean;
 
   constructor() {
     this.nomeBotao = '';
     this.bloquear = false;
+    this.iconeBotao = '';
+    this.exibirInconeBotao = false;
   }
 
   ngOnInit(): void {
+    this.exibirInconeBotao = this.iconeBotao !== undefined && this.iconeBotao.length > 0;
   }
 
   emitirEventoClick(evento: Event): void {
