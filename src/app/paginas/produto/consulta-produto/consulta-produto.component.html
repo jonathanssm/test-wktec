@@ -1,0 +1,18 @@
+<div class="animate__animated animate__fadeIn">
+  <form [formGroup]="form" class="container">
+    <div class="row">
+      <div class="col-12 col-xl-4">
+        <app-input label="Código Produto" formControlName="codigoProduto" [control]="codigoControl"
+          placeHolder="Código Produto" mascara="0*" msgErro="Campo obrigatório e deve contar somente dígitos de 0-9."
+          [tamanhoMaximo]="20">
+        </app-input>
+      </div>
+      <div class="col-auto">
+        <app-button nomeBotao="Consultar" [bloquear]="form.invalid" (eventoClick)="consultar()"></app-button>
+      </div>
+      <div class="col-auto">
+        <app-button nomeBotao="Cadastrar" iconeBotao="arrow_forward" [bloquear]="form.invalid" (eventoClick)="cadastrar()"></app-button>
+      </div>
+    </div>
+  </form>
+</div>

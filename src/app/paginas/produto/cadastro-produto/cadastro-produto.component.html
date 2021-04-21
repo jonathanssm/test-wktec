@@ -1,0 +1,28 @@
+<div class="animate__animated animate__fadeIn">
+  <form [formGroup]="form" class="container">
+    <div class="row">
+      <div class="col-12 col-xl-4">
+        <app-input label="Código Produto" formControlName="codigoProduto" [control]="codigoProdutoControl"
+          placeHolder="Código Produto" mascara="0*" msgErro="Campo obrigatório." [tamanhoMaximo]="20"
+          [somenteLeitura]="true">
+        </app-input>
+      </div>
+      <div class="col-12 col-xl-4">
+        <app-input label="Valor Produto R$" formControlName="valorProduto" [control]="valorProdutoControl"
+          placeHolder="Valor Produto R$" mascara="0*.00" msgErro="Campo obrigatório." [droparCaracterSpecial]="false">
+        </app-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-xl-8">
+        <app-input label="Nome Produto" formControlName="nomeProduto" [control]="nomeProdutoControl"
+          placeHolder="Nome Produto" msgErro="Campo obrigatório.">
+        </app-input>
+      </div>
+      <div class="col-auto">
+        <app-button nomeBotao="Cadastrar" [bloquear]="form.invalid" (eventoClick)="cadastrarProduto()">
+        </app-button>
+      </div>
+    </div>
+  </form>
+</div>

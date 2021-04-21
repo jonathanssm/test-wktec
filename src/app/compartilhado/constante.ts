@@ -1,4 +1,6 @@
 enum Constante {
+  CHAVE_CRIPTOGRAFIA = 'MORAES@jonathanS@',
+
   // MASCARAS
   MASCARA_HORA_MINUTO = 'HH:mm',
   MASCARA_HORA_MINUTO_SEGUNDO = 'HH:mm:ss',
@@ -11,7 +13,6 @@ enum Constante {
   MASCARA_CELULAR_DDD = '(00) 90000-0000',
   MASCARA_FIXO_DDD = '(00) 0000-0000',
   MASCARA_CEP = '00000-000',
-  MASCARA_NOME = 'L',
 
   // regex validacao
   REGEX_VALIDACAO_NUMERO = '^[0-9]*',
