@@ -36,6 +36,15 @@ import { ConsultaProdutoComponent } from './paginas/produto/consulta-produto/con
 import { VendaComponent } from './paginas/venda/venda.component';
 import { CadastroProdutoComponent } from './paginas/produto/cadastro-produto/cadastro-produto.component';
 
+// Env
+import { environment } from '../environments/environment';
+
+// Firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
 // Permissao Rota
 import { PermissaoRota } from 'src/app/permissao-rota';
 
@@ -71,6 +80,10 @@ const MODULO_ANGULAR_MATERIAL = [
     HttpClientModule,
     AppRoutingModule,
     ...MODULO_ANGULAR_MATERIAL,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
     NgxMaskModule.forRoot()
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

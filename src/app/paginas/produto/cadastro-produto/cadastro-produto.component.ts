@@ -4,9 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // Servicos
 import { ModalServico } from 'src/app/compartilhado/componentes/modal/modal.servico';
+import { AppServico } from 'src/app/compartilhado/servico/app-servico.service';
 
-// Modelo
+// Modelos
 import { ParametroRota } from 'src/app/compartilhado/modelo/parametro-rota.dto';
+import { Produto } from '../produto.modelo';
 
 // Util
 import { AppParametroRotaUtil } from 'src/app/compartilhado/utils/app-parametro-rota.util';
@@ -29,7 +31,8 @@ export class CadastroProdutoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private modalServico: ModalServico,
     private router: Router,
-    private rotaAtiva: ActivatedRoute
+    private rotaAtiva: ActivatedRoute,
+    private appServico: AppServico
   ) {
     this.parametroRota = AppParametroRotaUtil.recuperarParametro(this.rotaAtiva);
   }
@@ -39,7 +42,22 @@ export class CadastroProdutoComponent implements OnInit {
     this.carregarDadoParametro();
   }
 
-  cadastrar(): void {
+  cadastrarProduto(): void {
+    const produto: Produto = {
+      codigo: this.form.controls.codigoProduto.value,
+      nome: this.form.controls.nomeProduto.value,
+      valor: this.form.controls.valorProduto.value,
+    };
+
+    this.appServico.inserirAtualizarProduto(produto).then(() => {
+      this.redirecionarPaginaConsulta();
+    })
+      .catch(error => {
+        this.modalServico.exibirMensagem(error);
+      });
+  }
+
+  private redirecionarPaginaConsulta(): void {
     const parametroRetorno: ParametroRota = {
       redirecionar: '', dado: {
         codigoProduto: this.form.controls.codigoProduto.value
