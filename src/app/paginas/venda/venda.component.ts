@@ -100,10 +100,10 @@ export class VendaComponent implements OnInit {
     return AppDocumentoUtil.isDocumentoCPF(documento) ? new CpfPipe().transform(documento) : new CnpjPipe().transform(documento);
   }
 
-  carregarListaProduto(documento: number): void {
+  carregarListaProduto(codigo: number): void {
     let listaVendaTemporaria: Array<Venda> = [];
 
-    listaVendaTemporaria = this.listaVenda.filter(venda => venda.documentoCliente === documento);
+    listaVendaTemporaria = this.listaVenda.filter(venda => venda.codigo === codigo);
 
     listaVendaTemporaria.map(venda => {
       this.listaProduto = venda.listaProduto;
