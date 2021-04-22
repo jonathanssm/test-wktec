@@ -40,8 +40,8 @@ export class AppServico {
         return this.firestore.collection('venda').doc(venda.codigo.toString()).set(venda);
     }
 
-    excluirVenda(documento: number): void {
-        this.firestore.doc('venda/' + documento).delete();
+    excluirVenda(codigo: number): void {
+        this.firestore.doc('venda/' + codigo).delete();
     }
 
     getListaVenda(): Observable<DocumentChangeAction<unknown>[]> {
