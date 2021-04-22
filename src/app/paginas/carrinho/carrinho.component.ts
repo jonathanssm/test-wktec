@@ -48,13 +48,14 @@ export class CarrinhoComponent implements OnInit {
   public mascara: string;
   public label: string;
   public listaProduto: Array<Produto> = [];
-  public valorTotal: number;
   public displayedColumns: string[] = ['codigo', 'nome', 'valor', 'excluir'];
   public dataSource = new MatTableDataSource<Produto>();
+  public valorTotal: string;
 
   private mapaValidacao: Map<string, Validacao>;
   private parametroRota: ParametroRota;
   private listaCliente: Array<Cliente> = [];
+  private valorTotalAtual: number;
 
   constructor(
     private rotaAtiva: ActivatedRoute,
@@ -68,7 +69,8 @@ export class CarrinhoComponent implements OnInit {
     this.mascara = Constante.MASCARA_CPF;
     this.label = AppDocumentoUtil.LABEL_OPCAO_PESSOA_FISICA;
     this.parametroRota = AppParametroRotaUtil.recuperarParametro(this.rotaAtiva);
-    this.valorTotal = 0;
+    this.valorTotalAtual = 0;
+    this.valorTotal = '0.00';
   }
 
   ngOnInit(): void {
@@ -97,17 +99,20 @@ export class CarrinhoComponent implements OnInit {
       listaItens.map(item => listaObj.push(localStorage.getItem(item)));
 
       listaObj.map(obj => {
-        this.listaProduto.push(JSON.parse(obj));
-      });
-
-      this.listaProduto.forEach(produto => {
-        if (produto !== null) {
-          this.valorTotal += parseFloat(produto.valor.toString());
-          this.dataSource = new MatTableDataSource<Produto>(this.listaProduto.sort((a, b) => a.codigo - b.codigo));
-          this.dataSource.paginator = this.paginator;
+        if (obj !== null) {
+          this.listaProduto.push(JSON.parse(obj));
         }
       });
 
+      if (this.listaProduto.length > 0) {
+        this.dataSource = new MatTableDataSource<Produto>(this.listaProduto.sort((a, b) => a.codigo - b.codigo));
+        this.dataSource.paginator = this.paginator;
+
+        this.listaProduto.map(produto => {
+          this.valorTotalAtual += parseFloat(produto.valor.toString());
+          this.valorTotal = this.valorTotalAtual.toFixed(2);
+        });
+      }
     }
   }
 
@@ -118,7 +123,7 @@ export class CarrinhoComponent implements OnInit {
         documentoCliente: this.form.controls.documentoCliente.value,
         dataHora: moment(moment.now()).format(Constante.MASCARA_DATA_HORA),
         listaProduto: this.listaProduto,
-        total: this.valorTotal
+        total: this.valorTotalAtual
       };
 
       this.appServico.inserirAtualizarVenda(venda);
@@ -150,14 +155,15 @@ export class CarrinhoComponent implements OnInit {
   removerProdutoCarrinho(codigoProduto: number): void {
     localStorage.removeItem(codigoProduto.toString());
 
-    this.valorTotal -= this.listaProduto.filter(produto => produto.codigo === codigoProduto)[0].valor;
+    this.valorTotalAtual -= this.listaProduto.filter(produto => produto.codigo === codigoProduto)[0].valor;
+    this.valorTotal = this.valorTotalAtual > 0 ? this.valorTotalAtual.toFixed(2) : '0.00';
     this.listaProduto = this.listaProduto.filter(produto => produto.codigo !== codigoProduto);
     this.dataSource = new MatTableDataSource<Produto>(this.listaProduto);
     this.dataSource.paginator = this.paginator;
   }
 
   bloquearBotao(): boolean {
-    return this.form.invalid || this.valorTotal === 0;
+    return this.form.invalid || this.valorTotalAtual === 0;
   }
 
   private carregarDadoParametro(): void {
