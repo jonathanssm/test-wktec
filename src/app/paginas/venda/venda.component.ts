@@ -89,9 +89,9 @@ export class VendaComponent implements OnInit {
     this.listaProduto = [];
   }
 
-  excluirVenda(documento: number): void {
+  excluirVenda(codigo: number): void {
     this.modalServico.exibirConfirmacao('Realmente deseja excluir esta venda?', () => {
-      this.appServico.excluirVenda(documento);
+      this.appServico.excluirVenda(codigo);
       this.listaProduto = [];
     });
   }
