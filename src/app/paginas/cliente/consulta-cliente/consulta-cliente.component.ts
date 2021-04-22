@@ -43,8 +43,12 @@ export class ConsultaClienteComponent implements OnInit {
   public mascara: string;
   public label: string;
   public listaCliente: Array<Cliente> = [];
-  public displayedColumns: string[] = ['codigo', 'nome', 'documento', 'endereco', 'email', 'dataNascimento', 'excluir'];
+  public displayedColumns: string[] = ['codigo', 'documento', 'detalhe', 'excluir'];
   public dataSource = new MatTableDataSource<Cliente>();
+  public email: string;
+  public endereco: string;
+  public nome: string;
+  public dataNascimento: string;
 
   private mapaValidacao: Map<string, Validacao>;
   private listaClienteTemporaria: Array<Cliente> = [];
@@ -62,6 +66,10 @@ export class ConsultaClienteComponent implements OnInit {
     this.mascara = Constante.MASCARA_CPF;
     this.label = AppDocumentoUtil.LABEL_OPCAO_PESSOA_FISICA;
     this.parametroRota = AppParametroRotaUtil.recuperarParametro(this.rotaAtiva);
+    this.email = '';
+    this.endereco = '';
+    this.nome = '';
+    this.dataNascimento = '';
   }
 
   ngOnInit(): void {
@@ -85,6 +93,7 @@ export class ConsultaClienteComponent implements OnInit {
     this.listaClienteTemporaria = this.listaCliente.filter(cliente => cliente.documento === this.form.controls.documento.value);
     this.dataSource = new MatTableDataSource<Cliente>(this.listaClienteTemporaria);
     this.dataSource.paginator = this.paginator;
+    this.resetarDadoDetalheCliente();
   }
 
   redirecionarParaCadastro(): void {
@@ -101,24 +110,32 @@ export class ConsultaClienteComponent implements OnInit {
   excluirCliente(documento: number): void {
     this.modalServico.exibirConfirmacao('Realmente deseja excluir este cliente?', () => {
       this.appServico.excluirCliente(documento);
+      this.resetarDadoDetalheCliente();
     });
-  }
-
-  recuperarEnderecoCompleto(indice: number): string {
-    if (this.listaClienteTemporaria.length > 0 && this.listaClienteTemporaria[indice].endereco.logradouro.length > 0) {
-      const endereco: Endereco = this.listaClienteTemporaria[indice].endereco;
-      const complemento: string = endereco.compplemento.length > 0 ? endereco.compplemento : 'S.C';
-      const numero: string = endereco.numero.length > 0 ? endereco.numero : 'S.N';
-
-      return endereco.logradouro.concat(', ').concat(numero).concat(', ').concat(complemento).
-        concat(', ').concat(endereco.bairro).concat(', ').concat(endereco.cidade).concat(', ').concat(endereco.cep.toString());
-    }
-
-    return '';
   }
 
   formatarDocumento(documento: string): string {
     return AppDocumentoUtil.isDocumentoCPF(documento) ? new CpfPipe().transform(documento) : new CnpjPipe().transform(documento);
+  }
+
+  carregarDadoDetalheCliente(documento: number, indice: number): void {
+    const clienteTemp: any = this.listaClienteTemporaria.find(cliente => cliente.documento === documento);
+
+    this.dataNascimento = clienteTemp.dataNascimento;
+    this.nome = clienteTemp.nome;
+    this.email = clienteTemp.email;
+    this.endereco = this.recuperarEnderecoCompleto(indice);
+  }
+
+  resetarDadoDetalheCliente(): void {
+    this.email = '';
+    this.endereco = '';
+    this.nome = '';
+    this.dataNascimento = '';
+  }
+
+  exibirCardDetalheCliente(): boolean {
+    return this.endereco.length > 0 && this.email.length > 0 && this.nome.length > 0 && this.dataNascimento.length > 0;
   }
 
   private configurarDocumentoControl(validacao: Validacao): void {
@@ -142,6 +159,19 @@ export class ConsultaClienteComponent implements OnInit {
       this.form.controls.documento.setValue(this.parametroRota.dado.documentoCliente);
       this.form.controls.tipoPessoa.setValue(this.parametroRota.dado.tipoPessoa);
     }
+  }
+
+  private recuperarEnderecoCompleto(indice: number): string {
+    if (this.listaClienteTemporaria.length > 0 && this.listaClienteTemporaria[indice].endereco.logradouro.length > 0) {
+      const endereco: Endereco = this.listaClienteTemporaria[indice].endereco;
+      const complemento: string = endereco.compplemento.length > 0 ? endereco.compplemento : 'S.C';
+      const numero: string = endereco.numero.length > 0 ? endereco.numero : 'S.N';
+
+      return endereco.logradouro.concat(', ').concat(numero).concat(', ').concat(complemento).
+        concat(', ').concat(endereco.bairro).concat(', ').concat(endereco.cidade).concat(', ').concat(endereco.cep.toString());
+    }
+
+    return '';
   }
 
   private iniciarForm(): void {
