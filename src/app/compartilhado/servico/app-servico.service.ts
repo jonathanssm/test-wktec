@@ -39,4 +39,12 @@ export class AppServico {
     inserirAtualizarVenda(venda: Venda): Promise<void> {
         return this.firestore.collection('venda').doc(venda.codigo.toString()).set(venda);
     }
+
+    excluirVenda(documento: number): void {
+        this.firestore.doc('venda/' + documento).delete();
+    }
+
+    getListaVenda(): Observable<DocumentChangeAction<unknown>[]> {
+        return this.firestore.collection('venda').snapshotChanges();
+    }
 }
