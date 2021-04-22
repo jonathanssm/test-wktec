@@ -1,0 +1,76 @@
+<div class="animate__animated animate__fadeIn container">
+  <form [formGroup]="form">
+    <div class="row">
+      <app-radio id="tipoPessoa" formControlName="tipoPessoa" [control]="tipoPessoaControl" [listaOpcao]="listaOpcao"
+        (selecionarOpcao)="selecionarOpcao($event)" [somenteLeitura]="true"></app-radio>
+      <div class="col-12 col-xl-3">
+        <app-input [label]="label" formControlName="documentoCliente" [control]="documentoClienteControl"
+          [placeHolder]="label" [mascara]="mascara" [msgErro]="msgErro" [somenteLeitura]="true"></app-input>
+      </div>
+      <div class="col-12 col-xl-4">
+        <app-input label="Código Cliente" formControlName="codigoCliente" [control]="codigoClienteControl"
+          placeHolder="Código Cliente" mascara="0*" msgErro="Campo obrigatório." [tamanhoMaximo]="20">
+        </app-input>
+      </div>
+      <div class="col-12 col-xl-5">
+        <app-datepicker label="Data Nascimento" placeHolder="Data Nascimento" msgErro="Campo obrigatório."
+          formControlName="dataNascimento" [control]="dataNascimentoControl">
+        </app-datepicker>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-xl-12">
+        <app-input label="Nome Cliente" formControlName="nomeCliente" [control]="nomeClienteControl"
+          placeHolder="Nome Cliente" msgErro="Campo obrigatório.">
+        </app-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-xl-6">
+        <app-input label="Email" formControlName="email" [control]="emailControl" placeHolder="Email"
+          msgErro="Campo obrigatório.">
+        </app-input>
+      </div>
+      <div class="col-12 col-xl-6">
+        <app-input label="Logradouro" formControlName="logradouro" [control]="logradouroControl"
+          placeHolder="Logradouro" msgErro="Campo obrigatório.">
+        </app-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-xl-3">
+        <app-input label="Bairro" formControlName="bairro" [control]="bairroControl" placeHolder="Bairro"
+          msgErro="Campo obrigatório.">
+        </app-input>
+      </div>
+      <div class="col-12 col-xl-3">
+        <app-input label="Cidade" formControlName="cidade" [control]="cidadeControl" placeHolder="Cidade"
+          msgErro="Campo obrigatório.">
+        </app-input>
+      </div>
+      <div class="col-12 col-xl-3">
+        <app-input label="CEP" formControlName="cep" [control]="cepControl" placeHolder="CEP" mascara="00000-000"
+          msgErro="Campo obrigatório.">
+        </app-input>
+      </div>
+      <div class="col-12 col-xl-3">
+        <app-input label="Número" formControlName="numero" [control]="numeroControl" placeHolder="Número"
+          msgErro="Campo obrigatório.">
+        </app-input>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-xl-6">
+        <app-input label="Complemento" formControlName="complemento" [control]="complementoControl"
+          placeHolder="Complemento" msgErro="Campo obrigatório.">
+        </app-input>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-auto">
+        <app-button nomeBotao="Cadastrar" [bloquear]="form.invalid" (eventoClick)="cadastrarCliente()">
+        </app-button>
+      </div>
+    </div>
+  </form>
+</div>

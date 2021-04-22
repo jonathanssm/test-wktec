@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+// Modelo
+import { ParametroRota } from '../../modelo/parametro-rota.dto';
+
+// Util
+import { AppParametroRotaUtil } from '../../utils/app-parametro-rota.util';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +14,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  redirecionarPaginaCarrinho(): void {
+    const parametro: ParametroRota = { redirecionar: '', dado: { itensCarrinho: Object.keys(localStorage) } };
+
+    this.router.navigate(['/carrinho', AppParametroRotaUtil.gerarParametro(parametro)]);
   }
 
+  esconderBadge(): boolean {
+    return this.recuperarTamanhoBadge() === 0;
+  }
+
+  recuperarTamanhoBadge(): number {
+    return localStorage.length;
+  }
 }

@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 // Servicos
 import { ModalServico } from 'src/app/compartilhado/componentes/modal/modal.servico';
 import { AppServico } from 'src/app/compartilhado/servico/app-servico.service';
 
-// Modelo
+// Modelos
 import { ParametroRota } from 'src/app/compartilhado/modelo/parametro-rota.dto';
+import { Produto } from '../produto.modelo';
 
 // Util
 import { AppParametroRotaUtil } from 'src/app/compartilhado/utils/app-parametro-rota.util';
-import { Produto } from '../produto.modelo';
 
 @Component({
   selector: 'app-consulta-produto',
@@ -20,11 +22,16 @@ import { Produto } from '../produto.modelo';
 })
 export class ConsultaProdutoComponent implements OnInit {
 
+  @ViewChild(MatPaginator) private paginator: any;
+
   public form: FormGroup = new FormGroup({});
   public codigoControl: FormControl = new FormControl({});
   public listaProduto: Array<Produto> = [];
+  public displayedColumns: string[] = ['codigo', 'nome', 'valor', 'carrinho', 'excluir'];
+  public dataSource = new MatTableDataSource<Produto>();
 
   private parametroRota: ParametroRota;
+  private listaProdutoTemporaria: Array<Produto> = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,11 +49,19 @@ export class ConsultaProdutoComponent implements OnInit {
     this.carregarListaProdutos();
   }
 
-  consultar(): void {
-    this.modalServico.exibirMensagem(`Consultado com sucesso.`);
+  excluirProduto(idProduto: number): void {
+    this.modalServico.exibirConfirmacao('Realmente deseja excluir este produto?', () => {
+      this.appServico.excluirProduto(idProduto);
+    });
   }
 
-  cadastrar(): void {
+  consultarProduto(): void {
+    this.listaProdutoTemporaria = this.listaProduto.filter(produto => produto.codigo === this.form.controls.codigoProduto.value);
+    this.dataSource = new MatTableDataSource<Produto>(this.listaProdutoTemporaria);
+    this.dataSource.paginator = this.paginator;
+  }
+
+  redirecionarParaCadastro(): void {
     const parametroRetorno: ParametroRota = {
       redirecionar: '/produto/consulta', dado: {
         codigoProduto: this.form.controls.codigoProduto.value
@@ -57,15 +72,20 @@ export class ConsultaProdutoComponent implements OnInit {
       '/produto/cadastro', AppParametroRotaUtil.gerarParametro(parametroRetorno)]);
   }
 
+  adicionarProdutoCarrinho(indice: number): void {
+    const produtoSelecionado: Produto = this.listaProdutoTemporaria[indice];
+
+    localStorage.setItem(produtoSelecionado.codigo.toString(), JSON.stringify(produtoSelecionado));
+
+    this.modalServico.exibirMensagem('Produto adicionado ao carrinho.');
+  }
+
   private carregarListaProdutos(): void {
     this.appServico.getListaProduto().subscribe(data => {
-      this.listaProduto = data.map((e: any) =>
-        (e.payload.doc.data())
-      );
-
-      this.listaProduto.forEach(dado => {
-        console.log(dado.codigo);
-      });
+      this.listaProduto = data.map((e: any) => (e.payload.doc.data()));
+      this.dataSource = new MatTableDataSource<Produto>(this.listaProduto);
+      this.dataSource.paginator = this.paginator;
+      this.listaProdutoTemporaria = this.listaProduto;
     });
   }
 
