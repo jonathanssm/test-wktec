@@ -114,7 +114,7 @@ export class CarrinhoComponent implements OnInit {
   registrarVenda(): void {
     if (this.isClienteExiste(this.form.controls.documentoCliente.value)) {
       const venda: Venda = {
-        codigo: this.form.controls.documentoCliente.value,
+        codigo: Math.floor(Math.random() * 1000) + 1,
         documentoCliente: this.form.controls.documentoCliente.value,
         dataHora: moment(moment.now()).format(Constante.MASCARA_DATA_HORA),
         listaProduto: this.listaProduto,
@@ -123,7 +123,14 @@ export class CarrinhoComponent implements OnInit {
 
       this.appServico.inserirAtualizarVenda(venda);
 
-      this.router.navigate(['/venda']);
+      const parametro: ParametroRota = {
+        redirecionar: '', dado: {
+          documentoCliente: this.form.controls.documentoCliente.value,
+          tipoPessoa: this.form.controls.tipoPessoa.value
+        }
+      };
+
+      this.router.navigate(['/venda', AppParametroRotaUtil.gerarParametro(parametro)]);
       this.modalServico.exibirMensagem('Venda registrada com sucesso.');
       localStorage.clear();
     } else {

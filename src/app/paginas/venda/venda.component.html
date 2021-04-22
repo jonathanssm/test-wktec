@@ -1,3 +1,73 @@
-<div class="animate__animated animate__fadeIn">
-  <p>venda works!</p>
+<div class="animate__animated animate__fadeIn container">
+  <form [formGroup]="form">
+    <div class="row">
+      <app-radio id="tipoPessoa" formControlName="tipoPessoa" [control]="tipoPessoaControl" [listaOpcao]="listaOpcao"
+        (selecionarOpcao)="selecionarOpcao($event)"></app-radio>
+      <div class="col-12 col-xl-3">
+        <app-input [label]="label" formControlName="documento" [control]="documentoControl" [placeHolder]="label"
+          [mascara]="mascara" [msgErro]="msgErro"></app-input>
+      </div>
+      <div class="col-auto">
+        <app-button nomeBotao="Consultar" [bloquear]="form.invalid" (eventoClick)="consultarVenda()"></app-button>
+      </div>
+    </div>
+  </form>
+
+  <div class="row mt-3 mb-3">
+    <div class="col-12">
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+
+          <ng-container matColumnDef="documentoCliente">
+            <th mat-header-cell *matHeaderCellDef> CPF/CNPJ </th>
+            <td mat-cell *matCellDef="let element"> {{formatarDocumento(element.documentoCliente)}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dataHora">
+            <th mat-header-cell *matHeaderCellDef> Data </th>
+            <td mat-cell *matCellDef="let element"> {{element.dataHora}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef> Total </th>
+            <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="produto">
+            <th mat-header-cell *matHeaderCellDef> Produto </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="accent" (click)="carregarListaProduto(element.documentoCliente)">
+                <mat-icon>shopping_basket</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="excluir">
+            <th mat-header-cell *matHeaderCellDef> Excluir </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="warn" (click)="excluirVenda(element.documentoCliente)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="exibirCardDetalheVenda()">
+    <div class="row mb-3">
+      <div class="col-12">
+        <mat-card>
+          <div *ngFor="let produto of listaProduto">
+            <p><b>Codigo:</b> {{produto.codigo}} <br> <b>Nome:</b> {{produto.nome}} <br> <b>Valor:</b> {{produto.valor}}</p>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </ng-container>
 </div>
