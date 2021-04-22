@@ -93,6 +93,7 @@ export class ConsultaClienteComponent implements OnInit {
     this.listaClienteTemporaria = this.listaCliente.filter(cliente => cliente.documento === this.form.controls.documento.value);
     this.dataSource = new MatTableDataSource<Cliente>(this.listaClienteTemporaria);
     this.dataSource.paginator = this.paginator;
+    this.resetarDadoDetalheCliente();
   }
 
   redirecionarParaCadastro(): void {
@@ -109,6 +110,7 @@ export class ConsultaClienteComponent implements OnInit {
   excluirCliente(documento: number): void {
     this.modalServico.exibirConfirmacao('Realmente deseja excluir este cliente?', () => {
       this.appServico.excluirCliente(documento);
+      this.resetarDadoDetalheCliente();
     });
   }
 

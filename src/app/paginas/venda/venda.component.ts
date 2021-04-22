@@ -114,6 +114,10 @@ export class VendaComponent implements OnInit {
     return this.listaProduto.length > 0;
   }
 
+  resetarDadoDetalheProduto(): void {
+    this.listaProduto = [];
+  }
+
   private configurarDocumentoControl(validacao: Validacao): void {
     this.documentoControl.reset();
     this.documentoControl.clearValidators();
