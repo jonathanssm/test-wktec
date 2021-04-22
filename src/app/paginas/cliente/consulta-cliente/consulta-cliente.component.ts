@@ -43,7 +43,7 @@ export class ConsultaClienteComponent implements OnInit {
   public mascara: string;
   public label: string;
   public listaCliente: Array<Cliente> = [];
-  public displayedColumns: string[] = ['codigo', 'nome', 'documento', 'endereco', 'email', 'dataNascimento', 'acao'];
+  public displayedColumns: string[] = ['codigo', 'nome', 'documento', 'endereco', 'email', 'dataNascimento', 'excluir'];
   public dataSource = new MatTableDataSource<Cliente>();
 
   private mapaValidacao: Map<string, Validacao>;
@@ -138,8 +138,9 @@ export class ConsultaClienteComponent implements OnInit {
   }
 
   private carregarDadoParametro(): void {
-    if (this.parametroRota.dado !== null) {
+    if (this.parametroRota.dado !== null && this.parametroRota.dado.documentoCliente) {
       this.form.controls.documento.setValue(this.parametroRota.dado.documentoCliente);
+      this.form.controls.tipoPessoa.setValue(this.parametroRota.dado.tipoPessoa);
     }
   }
 

@@ -40,6 +40,7 @@ import { ConsultaProdutoComponent } from './paginas/produto/consulta-produto/con
 import { VendaComponent } from './paginas/venda/venda.component';
 import { CadastroProdutoComponent } from './paginas/produto/cadastro-produto/cadastro-produto.component';
 import { CadastroClienteComponent } from './paginas/cliente/cadastro-cliente/cadastro-cliente.component';
+import { CarrinhoComponent } from './paginas/carrinho/carrinho.component';
 
 // Env
 import { environment } from '../environments/environment';
@@ -77,7 +78,8 @@ const MODULO_ANGULAR_MATERIAL = [
     CadastroProdutoComponent,
     CadastroClienteComponent,
     CpfPipe,
-    CnpjPipe
+    CnpjPipe,
+    CarrinhoComponent
   ],
   imports: [
     BrowserModule,

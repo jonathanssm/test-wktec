@@ -8,6 +8,7 @@ import { ConsultaProdutoComponent } from './paginas/produto/consulta-produto/con
 import { VendaComponent } from './paginas/venda/venda.component';
 import { CadastroProdutoComponent } from './paginas/produto/cadastro-produto/cadastro-produto.component';
 import { CadastroClienteComponent } from './paginas/cliente/cadastro-cliente/cadastro-cliente.component';
+import { CarrinhoComponent } from './paginas/carrinho/carrinho.component';
 
 // Permissao Rota
 import { PermissaoRota } from 'src/app/permissao-rota';
@@ -32,7 +33,8 @@ export const ROTAS: Routes = [
                     { path: 'cadastro', component: CadastroProdutoComponent, data: { title: 'Cadastro' }, canActivate: [PermissaoRota] }
                 ]
             },
-            { path: 'venda', component: VendaComponent, data: { title: 'Venda' }, canActivate: [PermissaoRota] }
+            { path: 'venda', component: VendaComponent, data: { title: 'Venda' }, canActivate: [PermissaoRota] },
+            { path: 'carrinho', component: CarrinhoComponent, data: { title: 'Carrinho' }, canActivate: [PermissaoRota] }
         ]
     }
 ];

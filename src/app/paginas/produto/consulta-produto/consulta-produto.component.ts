@@ -27,7 +27,7 @@ export class ConsultaProdutoComponent implements OnInit {
   public form: FormGroup = new FormGroup({});
   public codigoControl: FormControl = new FormControl({});
   public listaProduto: Array<Produto> = [];
-  public displayedColumns: string[] = ['codigo', 'nome', 'valor', 'acao'];
+  public displayedColumns: string[] = ['codigo', 'nome', 'valor', 'carrinho', 'excluir'];
   public dataSource = new MatTableDataSource<Produto>();
 
   private parametroRota: ParametroRota;
@@ -72,15 +72,21 @@ export class ConsultaProdutoComponent implements OnInit {
       '/produto/cadastro', AppParametroRotaUtil.gerarParametro(parametroRetorno)]);
   }
 
+  adicionarProdutoCarrinho(indice: number): void {
+    const produtoSelecionado: Produto = this.listaProdutoTemporaria[indice];
+
+    localStorage.setItem(produtoSelecionado.codigo.toString(), JSON.stringify(produtoSelecionado));
+
+    this.modalServico.exibirMensagem('Produto adicionado ao carrinho.');
+  }
+
   private carregarListaProdutos(): void {
-    if (this.form.controls.codigoProduto.value === '') {
-      this.appServico.getListaProduto().subscribe(data => {
-        this.listaProduto = data.map((e: any) => (e.payload.doc.data()));
-        this.dataSource = new MatTableDataSource<Produto>(this.listaProduto);
-        this.dataSource.paginator = this.paginator;
-        this.listaProdutoTemporaria = this.listaProduto;
-      });
-    }
+    this.appServico.getListaProduto().subscribe(data => {
+      this.listaProduto = data.map((e: any) => (e.payload.doc.data()));
+      this.dataSource = new MatTableDataSource<Produto>(this.listaProduto);
+      this.dataSource.paginator = this.paginator;
+      this.listaProdutoTemporaria = this.listaProduto;
+    });
   }
 
   private carregarDadoParametro(): void {

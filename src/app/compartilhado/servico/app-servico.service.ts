@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 // Modelos
 import { Produto } from 'src/app/paginas/produto/produto.modelo';
 import { Cliente } from 'src/app/paginas/cliente/cliente.modelo';
+import { Venda } from 'src/app/paginas/venda/venda.modelo';
 
 @Injectable()
 export class AppServico {
@@ -33,5 +34,9 @@ export class AppServico {
 
     excluirCliente(documento: number): void {
         this.firestore.doc('cliente/' + documento).delete();
+    }
+
+    inserirAtualizarVenda(venda: Venda): Promise<void> {
+        return this.firestore.collection('venda').doc(venda.codigo.toString()).set(venda);
     }
 }

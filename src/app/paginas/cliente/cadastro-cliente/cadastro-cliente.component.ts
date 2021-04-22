@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
+// Terceiros
+import * as moment from 'moment';
+
 // Servicos
 import { ModalServico } from 'src/app/compartilhado/componentes/modal/modal.servico';
 import { AppServico } from 'src/app/compartilhado/servico/app-servico.service';
 
 // Modelos
 import { ParametroRota } from 'src/app/compartilhado/modelo/parametro-rota.dto';
-import { Cliente, Endereco } from 'src/app/paginas/cliente/cliente.modelo';
+import { Cliente } from 'src/app/paginas/cliente/cliente.modelo';
 import { Constante } from 'src/app/compartilhado/constante';
 import { Opcao } from 'src/app/compartilhado/modelo/opcao';
 import { Validacao } from 'src/app/compartilhado/modelo/validacao';
@@ -16,7 +19,6 @@ import { Validacao } from 'src/app/compartilhado/modelo/validacao';
 // Util
 import { AppParametroRotaUtil } from 'src/app/compartilhado/utils/app-parametro-rota.util';
 import { AppDocumentoUtil } from 'src/app/compartilhado/utils/app-documento.util';
-import { Timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-cadastro-cliente',
@@ -83,7 +85,7 @@ export class CadastroClienteComponent implements OnInit {
       codigo: this.form.controls.codigoCliente.value,
       nome: this.form.controls.nomeCliente.value,
       documento: this.form.controls.documentoCliente.value,
-      dataNascimento: this.converterParaData(this.form.controls.dataNascimento.value),
+      dataNascimento: moment(this.form.controls.dataNascimento.value).format(Constante.MASCARA_DATA),
       email: this.form.controls.email.value,
       endereco: {
         bairro: this.form.controls.bairro.value,
@@ -103,12 +105,6 @@ export class CadastroClienteComponent implements OnInit {
       });
   }
 
-  private converterParaData(dataAtual: any): string {
-    const data: Date = new Date(dataAtual);
-
-    return data.toLocaleDateString('pt-BR');
-  }
-
   private configurarDocumentoControl(validacao: Validacao): void {
     this.documentoClienteControl.clearValidators();
     this.documentoClienteControl.setValidators([Validators.required, Validators.pattern(validacao.regex)]);
@@ -118,7 +114,8 @@ export class CadastroClienteComponent implements OnInit {
   private redirecionarPaginaConsulta(): void {
     const parametroRetorno: ParametroRota = {
       redirecionar: '', dado: {
-        documentoCliente: this.form.controls.documentoCliente.value
+        tipoPessoa: this.form.controls.tipoPessoa.value, documentoCliente: this.form.controls.documentoCliente.value,
+        itensCarrinho: this.parametroRota.dado.itensCarrinho
       }
     };
 
