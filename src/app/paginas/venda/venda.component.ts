@@ -100,6 +100,10 @@ export class VendaComponent implements OnInit {
     return AppDocumentoUtil.isDocumentoCPF(documento) ? new CpfPipe().transform(documento) : new CnpjPipe().transform(documento);
   }
 
+  formatarValorTotalVenda(valor: number): string {
+    return valor.toFixed(2);
+  }
+
   carregarListaProduto(codigo: number): void {
     let listaVendaTemporaria: Array<Venda> = [];
 

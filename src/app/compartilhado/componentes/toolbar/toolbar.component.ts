@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 // Modelo
@@ -12,11 +12,17 @@ import { AppParametroRotaUtil } from '../../utils/app-parametro-rota.util';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit, OnChanges {
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.setarFocoMenu();
+  }
+
+  ngOnChanges(): void {
+    this.setarFocoMenu();
+  }
 
   redirecionarPaginaCarrinho(): void {
     const parametro: ParametroRota = { redirecionar: '', dado: { itensCarrinho: Object.keys(localStorage) } };
@@ -30,5 +36,9 @@ export class ToolbarComponent implements OnInit {
 
   recuperarTamanhoBadge(): number {
     return localStorage.length;
+  }
+
+  private setarFocoMenu(): void {
+    document.getElementById('#produto')?.focus();
   }
 }

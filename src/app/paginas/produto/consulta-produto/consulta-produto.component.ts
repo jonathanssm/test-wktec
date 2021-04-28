@@ -72,12 +72,16 @@ export class ConsultaProdutoComponent implements OnInit {
       '/produto/cadastro', AppParametroRotaUtil.gerarParametro(parametroRetorno)]);
   }
 
-  adicionarProdutoCarrinho(indice: number): void {
-    const produtoSelecionado: Produto = this.listaProdutoTemporaria[indice];
+  adicionarProdutoCarrinho(codigo: number): void {
+    const produtoSelecionado: Produto = this.listaProdutoTemporaria.filter(produto => produto.codigo === codigo)[0];
 
-    localStorage.setItem(produtoSelecionado.codigo.toString(), JSON.stringify(produtoSelecionado));
+    if (produtoSelecionado !== undefined && produtoSelecionado !== null) {
+      localStorage.setItem(produtoSelecionado.codigo.toString(), JSON.stringify(produtoSelecionado));
 
-    this.modalServico.exibirMensagem('Produto adicionado ao carrinho.');
+      this.modalServico.exibirMensagem('Produto adicionado ao carrinho.');
+    } else {
+      this.modalServico.exibirMensagem('Ocorreu um erro durante a tentativa de adicionar o produto ao carrinho.');
+    }
   }
 
   private carregarListaProdutos(): void {
