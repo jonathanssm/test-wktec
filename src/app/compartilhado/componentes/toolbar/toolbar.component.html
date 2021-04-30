@@ -9,13 +9,13 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar>
-      <button mat-icon-button (click)="drawer.toggle()">
+      <button class="animate__animated animate__jackInTheBox" mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <a routerLink="/home"><span>Test WKTec</span></a>
+      <a class="animate__animated animate__jackInTheBox" routerLink="/home"><span>Test WKTec</span></a>
       <span class="espacamento"></span>
-      <button class="mt-3" [style.margin-right.px]="8" mat-icon-button [matBadge]="recuperarTamanhoBadge()"
-        [matBadgeHidden]="esconderBadge()" (click)="redirecionarPaginaCarrinho()">
+      <button class="mt-3 animate__animated animate__jackInTheBox" [style.margin-right.px]="8" mat-icon-button
+        [matBadge]="recuperarTamanhoBadge()" [matBadgeHidden]="esconderBadge()" (click)="redirecionarPaginaCarrinho()">
         <mat-icon>shopping_cart</mat-icon>
       </button>
     </mat-toolbar>
