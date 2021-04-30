@@ -16,6 +16,9 @@ export class ButtonComponent implements OnInit {
   @Input()
   public iconeBotao?: string;
 
+  @Input()
+  public tipoBotao?: string;
+
   @Output()
   public eventoClick: EventEmitter<any> = new EventEmitter();
 
@@ -26,6 +29,7 @@ export class ButtonComponent implements OnInit {
     this.bloquear = false;
     this.iconeBotao = '';
     this.exibirInconeBotao = false;
+    this.tipoBotao = 'button';
   }
 
   ngOnInit(): void {

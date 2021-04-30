@@ -46,6 +46,7 @@ export class VendaComponent implements OnInit {
   public displayedColumns: string[] = ['documentoCliente', 'dataHora', 'total', 'produto', 'excluir'];
   public dataSource = new MatTableDataSource<Venda>();
   public listaProduto: Array<Produto> = [];
+  public efeitoCard: string;
 
   private listaVenda: Array<Venda> = [];
   private mapaValidacao: Map<string, Validacao>;
@@ -63,6 +64,7 @@ export class VendaComponent implements OnInit {
     this.mascara = Constante.MASCARA_CPF;
     this.label = AppDocumentoUtil.LABEL_OPCAO_PESSOA_FISICA;
     this.parametroRota = AppParametroRotaUtil.recuperarParametro(this.rotaAtiva);
+    this.efeitoCard = 'animate__animated animate__backInLeft';
   }
 
   ngOnInit(): void {
@@ -112,6 +114,10 @@ export class VendaComponent implements OnInit {
     listaVendaTemporaria.map(venda => {
       this.listaProduto = venda.listaProduto;
     });
+
+    if (this.efeitoCard !== 'animate__animated animate__backInLeft') {
+      this.efeitoCard = 'animate__animated animate__backInLeft';
+    }
   }
 
   exibirCardDetalheVenda(): boolean {
@@ -119,7 +125,10 @@ export class VendaComponent implements OnInit {
   }
 
   resetarDadoDetalheProduto(): void {
-    this.listaProduto = [];
+    this.efeitoCard = 'animate__animated animate__backOutLeft';
+    setTimeout(() => {
+      this.listaProduto = [];
+    }, 1000);
   }
 
   private configurarDocumentoControl(validacao: Validacao): void {

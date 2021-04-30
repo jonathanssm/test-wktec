@@ -1,3 +1,3 @@
-<button class="tamanhoBotao" mat-raised-button color="primary" [disabled]="bloquear"
+<button class="tamanhoBotao" mat-raised-button [type]="tipoBotao" color="primary" [disabled]="bloquear"
   (click)="emitirEventoClick($event)">{{nomeBotao}} <mat-icon *ngIf="exibirInconeBotao">{{iconeBotao}}</mat-icon>
-  </button>
+</button>
