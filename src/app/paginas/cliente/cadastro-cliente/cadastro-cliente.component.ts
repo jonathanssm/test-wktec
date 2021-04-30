@@ -40,7 +40,7 @@ export class CadastroClienteComponent implements OnInit {
   public cidadeControl: FormControl = new FormControl({});
   public complementoControl: FormControl = new FormControl({});
   public logradouroControl: FormControl = new FormControl({});
-  public numeroControl: FormControl = new FormControl({});
+  public numeroControl: FormControl = new FormControl();
 
   public listaOpcao: Array<Opcao> = [];
   public msgErro: string;

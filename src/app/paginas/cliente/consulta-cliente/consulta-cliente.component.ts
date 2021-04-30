@@ -49,6 +49,7 @@ export class ConsultaClienteComponent implements OnInit {
   public endereco: string;
   public nome: string;
   public dataNascimento: string;
+  public efeitoCard: string;
 
   private mapaValidacao: Map<string, Validacao>;
   private listaClienteTemporaria: Array<Cliente> = [];
@@ -70,6 +71,7 @@ export class ConsultaClienteComponent implements OnInit {
     this.endereco = '';
     this.nome = '';
     this.dataNascimento = '';
+    this.efeitoCard = 'animate__animated animate__backInLeft';
   }
 
   ngOnInit(): void {
@@ -125,13 +127,20 @@ export class ConsultaClienteComponent implements OnInit {
     this.nome = clienteTemp.nome;
     this.email = clienteTemp.email;
     this.endereco = this.recuperarEnderecoCompleto(indice);
+
+    if (this.efeitoCard !== 'animate__animated animate__backInLeft') {
+      this.efeitoCard = 'animate__animated animate__backInLeft';
+    }
   }
 
   resetarDadoDetalheCliente(): void {
-    this.email = '';
-    this.endereco = '';
-    this.nome = '';
-    this.dataNascimento = '';
+    this.efeitoCard = 'animate__animated animate__backOutLeft';
+    setTimeout(() => {
+      this.email = '';
+      this.endereco = '';
+      this.nome = '';
+      this.dataNascimento = '';
+    }, 1000);
   }
 
   exibirCardDetalheCliente(): boolean {
